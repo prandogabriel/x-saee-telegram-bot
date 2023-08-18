@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "amazonwebservices.aws-toolkit-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "kisstkondoros.vscode-codemetrics",
+    "EditorConfig.EditorConfig",
+    "usernamehw.errorlens",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "wix.vscode-import-cost",
+    "github.vscode-github-actions"
+  ]
+}

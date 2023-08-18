@@ -1,0 +1,44 @@
+name: "Deploy"
+run-name: Deploying branch ${{ github.base_ref }} on development by @${{ github.actor }}
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+env:
+  CI: true
+  SLS_DEBUG: false
+  BOT_TELEGRAM_TOKEN: ${{secrets.BOT_TELEGRAM_TOKEN}}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: 'development'
+    name: Deploy serverless to development
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Setup Node and Cache
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+
+      - name: Install dependencies with yarn
+        run: yarn install --frozen-lockfile
+        shell: bash
+
+
+      - name: serverless deploy
+        shell: bash
+        run: yarn sls deploy

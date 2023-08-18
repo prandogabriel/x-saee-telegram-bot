@@ -1,0 +1,38 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.language": "en, pt-BR",
+  "cSpell.words": [
+    "apigw",
+    "ciphertext",
+    "commitlint",
+    "esbuild",
+    "marshall",
+    "middlewares",
+    "Parens",
+    "powertools",
+    "runtimes",
+    "saee",
+    "sonarjs",
+    "Splitted",
+    "syncflush",
+    "typecheck",
+    "unmarshall",
+    "usecase",
+    "usecases"
+  ],
+  "material-icon-theme.folders.associations": {
+    "adapters": "connection",
+    "domains": "dist",
+    "frameworks": "packages",
+    "exceptions": "error",
+    "main": "functions",
+    "entities": "resource",
+    "enums": "Typescript",
+    "middy": "middleware",
+    "lambda-middleware": "middleware",
+    "lambda-commons": "packages",
+    "gateways": "api",
+    "usecases": "context"
+  }
+}
