@@ -5,6 +5,8 @@ const configuration: AWS = {
   frameworkVersion: ">=3.26.0",
   functions: {
     webHook: {
+      // src/main/create-user/handler.main
+      // src/functions/webhook-handler.ts
       handler: "src/functions/webhook-handler.handler",
       events: [
         {
@@ -62,13 +64,13 @@ const configuration: AWS = {
     package: {
       individually: true,
       excludeDevDependencies: true
-    },
-    plugins: [
-      "serverless-esbuild",
-      "serverless-offline",
-      "serverless-prune-plugin"
-    ]
-  }
+    }
+  },
+  plugins: [
+    "serverless-esbuild",
+    "serverless-offline",
+    "serverless-prune-plugin"
+  ]
 };
 
 export = configuration;
