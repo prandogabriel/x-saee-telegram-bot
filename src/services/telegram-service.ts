@@ -34,23 +34,24 @@ export class TelegramService {
 
   private token?: string;
 
-  private chatId?: string;
-
   constructor() {
     this.token = process.env.BOT_TELEGRAM_TOKEN!;
     this.baseUrl = process.env.TELEGRAM_API_URL!;
 
-    if (!this.token || !this.baseUrl || !this.chatId) {
+    if (!this.token || !this.baseUrl) {
       throw new Error("Credentials not configured");
     }
 
-    this.api = axios.create({ baseURL: `${this.baseUrl}/${this.token}` });
+    this.api = axios.create({ baseURL: `${this.baseUrl}/bot${this.token}` });
   }
 
-  public async sendNotification(text: string): Promise<ResultMessage> {
+  public async sendMessage(
+    text: string,
+    chatId: string
+  ): Promise<ResultMessage> {
     const { data } = await this.api.get<ResultMessage>("/sendMessage", {
       data: {
-        chat_id: this.chatId,
+        chat_id: chatId,
         text,
         parse_mode: "HTML"
       }
