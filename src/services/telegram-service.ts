@@ -53,21 +53,23 @@ export class TelegramService {
       data: {
         chat_id: chatId,
         text,
+        parse_mode: "HTML"
+      }
+    });
+
+    return data;
+  }
+  public async sendMessageWithMarkup(
+    text: string,
+    replyMarkup: any,
+    chatId: string
+  ): Promise<ResultMessage> {
+    const { data } = await this.api.get<ResultMessage>("/sendMessage", {
+      data: {
+        chat_id: chatId,
+        text,
         parse_mode: "HTML",
-        reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "A",
-                callback_data: "isso aqui foi  o reply 1"
-              },
-              {
-                text: "B",
-                callback_data: "isso aqui foi  o reply 2"
-              }
-            ]
-          ]
-        }
+        reply_markup: replyMarkup
       }
     });
 
