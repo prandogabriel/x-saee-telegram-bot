@@ -17,12 +17,12 @@ export const handler: Handler<
 
   if (isChangeCommand(body)) {
     await sendChangeQuestion(body);
-  } else if (body.callback_query.message.data) {
+  } else if (body?.callback_query?.message?.data) {
     console.log("publicar no tópico mqtt");
   } else {
     await telegram.sendMessage(
       `Comando ou mensagem inválida`,
-      body.message?.chat?.id
+      body?.message?.chat?.id
     );
   }
 
@@ -50,7 +50,7 @@ async function sendChangeQuestion(body: any) {
         ]
       ]
     },
-    body.message?.chat?.id
+    body?.message?.chat?.id
   );
 }
 
