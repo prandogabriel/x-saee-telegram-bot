@@ -3,7 +3,25 @@ import type { AWS } from "@serverless/typescript";
 const configuration: AWS = {
   service: "x-saee-telegram-bot",
   frameworkVersion: ">=3.26.0",
-  functions: {},
+  functions: {
+    webHook: {
+      handler: "src/functions/webhook-handler.handler",
+      events: [
+        {
+          httpApi: {
+            method: "POST",
+            path: "/webhook"
+          }
+        },
+        {
+          httpApi: {
+            method: "GET",
+            path: "/webhook"
+          }
+        }
+      ]
+    }
+  },
   resources: {},
   provider: {
     name: "aws",
@@ -13,10 +31,11 @@ const configuration: AWS = {
     region: "us-east-1",
     versionFunctions: false,
 
-    timeout: 30,
+    timeout: 15,
     memorySize: 256,
     environment: {
-      BOT_TELEGRAM_TOKEN: "${env:BOT_TELEGRAM_TOKEN}"
+      BOT_TELEGRAM_TOKEN: "${env:BOT_TELEGRAM_TOKEN}",
+      TELEGRAM_API_URL: ""
     },
     iam: {}
   },
