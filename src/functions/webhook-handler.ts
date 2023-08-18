@@ -14,8 +14,8 @@ export const handler: Handler<
   const body = JSON.parse(event.body ?? "{}");
 
   await new TelegramService().sendMessage(
-    `oii, sua mensagem: ${body.message.text}`,
-    body.message.chat.id
+    `oii, sua mensagem: ${body?.message?.text}`,
+    body.message?.chat?.id
   );
 
   return { statusCode: 200, body: "success" };

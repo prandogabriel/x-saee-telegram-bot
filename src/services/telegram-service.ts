@@ -55,11 +55,17 @@ export class TelegramService {
         text,
         parse_mode: "HTML",
         reply_markup: {
-          keyboard: [
-            ["uno :+1:"],
-            ["uno \ud83d\udc4d", "due"],
-            ["uno", "due", "tre"],
-            ["uno", "due", "tre", "quattro"]
+          inline_keyboard: [
+            [
+              {
+                text: "A",
+                callback_data: "isso aqui foi  o reply 1"
+              },
+              {
+                text: "B",
+                callback_data: "isso aqui foi  o reply 2"
+              }
+            ]
           ]
         }
       }
