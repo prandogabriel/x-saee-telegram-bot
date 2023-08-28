@@ -37,6 +37,7 @@ const configuration: AWS = {
     memorySize: 256,
     environment: {
       BOT_TELEGRAM_TOKEN: "${env:BOT_TELEGRAM_TOKEN}",
+      IOT_ENDPOINT: "${env:IOT_ENDPOINT}",
       TELEGRAM_API_URL: "https://api.telegram.org"
     },
     iam: {}
