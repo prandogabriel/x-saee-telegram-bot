@@ -21,8 +21,8 @@ export const handler: Handler<
     console.log("publicar no tópico mqtt");
   } else {
     await telegram.sendMessage(
-      `Comando ou mensagem inválida`,
-      body?.message?.chat?.id
+      `<b>Comando ou mensagem inválida.</b>`,
+      body?.message?.chat?.id || body?.callback_query?.message?.chat?.id
     );
   }
 
