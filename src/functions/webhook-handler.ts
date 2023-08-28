@@ -4,8 +4,10 @@ import type {
   Handler
 } from "aws-lambda";
 import { TelegramService } from "@app/services/telegram-service";
+import { IoTService } from "@app/services/iot-service";
 
 const telegram = new TelegramService();
+const iotService = new IoTService();
 
 export const handler: Handler<
   APIGatewayProxyEvent,
@@ -17,8 +19,13 @@ export const handler: Handler<
 
   if (isChangeCommand(body)) {
     await sendChangeQuestion(body);
-  } else if (body?.callback_query?.message?.data) {
-    console.log("publicar no tópico mqtt");
+  } else if (body?.callback_query?.data) {
+    await iotService.publishMessage(1, body?.callback_query?.data);
+    console.log("publicado");
+    await telegram.sendMessage(
+      `<b>Comando enviado.</b>`,
+      body?.message?.chat?.id || body?.callback_query?.message?.chat?.id
+    );
   } else {
     await telegram.sendMessage(
       `<b>Comando ou mensagem inválida.</b>`,

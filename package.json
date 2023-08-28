@@ -13,6 +13,7 @@
   "author": "Gabriel Prando <gprando55@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1445.0",
     "axios": "^1.4.0"
   },
   "devDependencies": {

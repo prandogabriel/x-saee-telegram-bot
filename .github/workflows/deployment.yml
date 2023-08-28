@@ -11,6 +11,7 @@ env:
   CI: true
   SLS_DEBUG: false
   BOT_TELEGRAM_TOKEN: ${{secrets.BOT_TELEGRAM_TOKEN}}
+  IOT_ENDPOINT: ${{ secrets.IOT_ENDPOINT }}
 
 jobs:
   deploy:
