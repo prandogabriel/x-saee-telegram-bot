@@ -20,7 +20,12 @@ export const handler: Handler<
   if (isChangeCommand(body)) {
     await sendChangeQuestion(body);
   } else if (body?.callback_query?.data) {
-    await iotService.publishMessage(1, body?.callback_query?.data);
+    const params = body?.callback_query?.data?.split(" ");
+
+    console.log({ params });
+
+    await iotService.publishMessage(params[1] || 0, params[0]);
+
     console.log("publicado");
     await telegram.sendMessage(
       `<b>Comando enviado.</b>`,
@@ -48,11 +53,11 @@ async function sendChangeQuestion(body: any) {
         [
           {
             text: "Ligar",
-            callback_data: `/ligar/${person}`
+            callback_data: `/luz/${person} 1`
           },
           {
             text: "Desligar",
-            callback_data: `/desligar/${person}`
+            callback_data: `/luz/${person} 0`
           }
         ]
       ]
