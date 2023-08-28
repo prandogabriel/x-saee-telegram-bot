@@ -40,7 +40,17 @@ const configuration: AWS = {
       IOT_ENDPOINT: "${env:IOT_ENDPOINT}",
       TELEGRAM_API_URL: "https://api.telegram.org"
     },
-    iam: {}
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: "Allow",
+            Action: ["iot:*"],
+            Resource: "*"
+          }
+        ]
+      }
+    }
   },
   custom: {
     stage: "${opt:stage,'dev'}",
