@@ -1,4 +1,4 @@
-import IotData from "aws-sdk/clients/iotdata";
+import { IotData } from "aws-sdk";
 
 export class IoTService {
   private iotData: IotData;
