@@ -55,13 +55,13 @@ async function sendChangeQuestion(body: any) {
   console.log("estado atual: ", state);
 
   await telegram.sendMessageWithMarkup(
-    `Estado atual da luz: ${state ? "ligado" : "desligado"}`,
+    `Estado atual da luz: ${state === "1" ? "ligado" : "desligado"}`,
     {
       inline_keyboard: [
         [
           {
             text: "Mudar",
-            callback_data: `luz-${person} ${state ? "0" : "1"}`
+            callback_data: `luz-${person} ${state === "1" ? "0" : "1"}`
           }
         ]
       ]
