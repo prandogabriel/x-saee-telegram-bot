@@ -20,11 +20,11 @@ export const handler: Handler<
   if (isChangeCommand(body)) {
     await sendChangeQuestion(body);
   } else if (body?.callback_query?.data) {
-    const [topic = "", state = 0] = body?.callback_query?.data?.split(" ");
+    const [shadowName = "", state = 0] = body?.callback_query?.data?.split(" ");
 
-    console.log({ topic, state });
+    console.log({ shadowName, state });
 
-    await iotService.publishMessage(state, topic);
+    await iotService.updateThingShadow(shadowName, state);
 
     console.log("publicado");
     await telegram.sendMessage(
@@ -53,11 +53,11 @@ async function sendChangeQuestion(body: any) {
         [
           {
             text: "Ligar",
-            callback_data: `/luz/${person} 1`
+            callback_data: `luz-${person} 1`
           },
           {
             text: "Desligar",
-            callback_data: `/luz/${person} 0`
+            callback_data: `luz-${person} 0`
           }
         ]
       ]

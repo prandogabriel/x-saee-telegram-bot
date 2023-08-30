@@ -1,6 +1,7 @@
 import {
   IoTDataPlaneClient,
-  PublishCommand
+  PublishCommand,
+  UpdateThingShadowCommand
 } from "@aws-sdk/client-iot-data-plane";
 
 export class IoTService {
@@ -22,8 +23,27 @@ export class IoTService {
 
     await this.iotData.send(command);
   }
+
+  async updateThingShadow(shadow: string, powerOn: string) {
+    const command = new UpdateThingShadowCommand({
+      thingName: "saee",
+      shadowName: shadow,
+      payload: JSON.stringify({
+        state: {
+          desired: {
+            welcome: "aws-iot",
+            powerOn
+          },
+          reported: {
+            welcome: "aws-iot",
+            powerOn
+          }
+        }
+      })
+    });
+
+    const result = await this.iotData.send(command);
+
+    console.log(result);
+  }
 }
-
-// const ioTService = new IoTService();
-
-// ioTService.publishMessage({ test: "Hello World" }, "test");
