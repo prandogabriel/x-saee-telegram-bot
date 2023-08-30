@@ -47,7 +47,7 @@ export class IoTService {
     // console.log(result);
   }
 
-  async getThingShadowState(shadowName: string): Promise<boolean> {
+  async getThingShadowState(shadowName: string): Promise<string> {
     try {
       const input = {
         thingName: "saee", // required
@@ -58,9 +58,9 @@ export class IoTService {
       const jsonString = Buffer.from(response.payload ?? "").toString("utf8");
 
       const parsedData = JSON.parse(jsonString);
-      return parsedData?.state?.reported?.powerOn === "1";
+      return parsedData?.state?.reported?.powerOn;
     } catch (error) {
-      return false;
+      return "NA";
     }
   }
 }

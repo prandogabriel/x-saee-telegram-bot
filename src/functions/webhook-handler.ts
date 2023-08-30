@@ -20,15 +20,21 @@ export const handler: Handler<
   if (isChangeCommand(body)) {
     await sendChangeQuestion(body);
   } else if (body?.callback_query?.data) {
-    const [shadowName = "", state = 0] = body?.callback_query?.data?.split(" ");
+    const [shadowName = "", newState = 0] =
+      body?.callback_query?.data?.split(" ");
 
-    console.log({ shadowName, state });
+    console.log({ shadowName, newState });
 
-    await iotService.updateThingShadow(shadowName, state);
+    const state = await iotService.getThingShadowState(shadowName);
+    await iotService.updateThingShadow(shadowName, newState);
 
     console.log("publicado");
     await telegram.sendMessage(
-      `<b>Comando para ${state === 0 ? "desligar" : "ligar"} enviado.</b>`,
+      state === "NA"
+        ? "<b> Luz inexistente</b>"
+        : `<b>Comando para ${
+            state === "0" ? "ligar" : "desligar"
+          } enviado.</b>`,
       body?.message?.chat?.id || body?.callback_query?.message?.chat?.id
     );
   } else {
