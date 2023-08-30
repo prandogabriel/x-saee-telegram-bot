@@ -1,4 +1,5 @@
 import {
+  GetThingShadowCommand,
   IoTDataPlaneClient,
   PublishCommand,
   UpdateThingShadowCommand
@@ -31,19 +32,42 @@ export class IoTService {
       payload: JSON.stringify({
         state: {
           desired: {
-            welcome: "aws-iot",
             powerOn
           },
           reported: {
-            welcome: "aws-iot",
             powerOn
           }
         }
       })
     });
 
-    const result = await this.iotData.send(command);
+    // const result = await this.iotData.send(command);
+    await this.iotData.send(command);
 
-    console.log(result);
+    // console.log(result);
+  }
+
+  async getThingShadowState(shadowName: string): Promise<boolean> {
+    try {
+      const input = {
+        thingName: "saee", // required
+        shadowName
+      };
+      const command = new GetThingShadowCommand(input);
+      const response = await this.iotData.send(command);
+      const jsonString = Buffer.from(response.payload ?? "").toString("utf8");
+
+      const parsedData = JSON.parse(jsonString);
+      return parsedData?.state?.reported?.powerOn === "1";
+    } catch (error) {
+      return false;
+    }
   }
 }
+
+/*
+(async () => {
+  await new IoTService().getThingShadowState("luz-gabriel");
+  await new IoTService().updateThingShadow("luz-gabriel", "1");
+})();
+*/

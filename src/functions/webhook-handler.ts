@@ -44,20 +44,18 @@ export const handler: Handler<
 async function sendChangeQuestion(body: any) {
   const person = body?.message?.text.split(" ")[1];
 
-  console.log("mudando estado do cara X");
+  const state = await iotService.getThingShadowState(`luz-${person}`);
+
+  console.log("estado atual: ", state);
 
   await telegram.sendMessageWithMarkup(
-    `Você deseja ligar ou desligar?`,
+    `Estado atual da luz: ${state ? "ligado" : "desligado"}`,
     {
       inline_keyboard: [
         [
           {
-            text: "Ligar",
-            callback_data: `luz-${person} 1`
-          },
-          {
-            text: "Desligar",
-            callback_data: `luz-${person} 0`
+            text: "Mudar",
+            callback_data: `luz-${person} ${state ? "0" : "1"}`
           }
         ]
       ]
