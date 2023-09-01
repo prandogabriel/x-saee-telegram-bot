@@ -14,10 +14,13 @@ export class IoTService {
     });
   }
 
-  async publishMessage(message: Object, topic?: string): Promise<void> {
+  async publishMessage(
+    message: Object | string,
+    topic?: string
+  ): Promise<void> {
     const command = new PublishCommand({
       topic: (topic || this.topic) as string,
-      payload: JSON.stringify(message),
+      payload: typeof message === "string" ? message : JSON.stringify(message),
       qos: 0
     });
 
